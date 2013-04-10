@@ -4,8 +4,11 @@
  */
 package p2pchat;
 
+import java.rmi.RemoteException;
 import java.util.HashMap;
 import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -30,8 +33,10 @@ public class Login extends javax.swing.JPanel {
   
     public Login(ClienteImpl cliente) {
         initComponents();
-        
+        v=new ventana();
         this.cliente=cliente;
+        v.setVisible(true);
+        v.setContentPane(this);
     }
 
     /**
@@ -140,18 +145,28 @@ public class Login extends javax.swing.JPanel {
     }//GEN-LAST:event_passActionPerformed
 
     private void loginBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBotonActionPerformed
-        // TODO add your handling code here:
-        cliente.login(nick.getText(), pass.getToolTipText());
+        try {
+            // TODO add your handling code here:
+            System.out.println(new String(pass.getPassword()));
+            
+            cliente.login(nick.getText(), new String(pass.getPassword()));
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
+        }
         PrincipalChat pchat=new PrincipalChat(cliente,nick.getText());
-        v.setContentPane(pchat);
-        v.setVisible(true);
+        
+        v.setVisible(false);
     }//GEN-LAST:event_loginBotonActionPerformed
 
     private void registroBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroBotonActionPerformed
         // TODO add your handling code here:
-        Registro registro=new Registro(cliente);
-        v.setContentPane(registro);
-        v.setVisible(true);
+        
+            Registro registro=new Registro(cliente);
+      
+            v.setVisible(false);
+       
+      
         
     }//GEN-LAST:event_registroBotonActionPerformed
 

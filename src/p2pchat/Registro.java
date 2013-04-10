@@ -4,6 +4,10 @@
  */
 package p2pchat;
 
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author maria
@@ -32,7 +36,10 @@ public class Registro extends javax.swing.JPanel {
     
     public Registro(ClienteImpl cliente) {
         initComponents();
+        v=new ventana();
         this.cliente=cliente;
+        v.setVisible(true);
+        v.setContentPane(this);
     }
 
     /**
@@ -55,7 +62,7 @@ public class Registro extends javax.swing.JPanel {
         pass2 = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
         apellidos = new javax.swing.JLabel();
-        nombre1 = new javax.swing.JTextField();
+        apellido = new javax.swing.JTextField();
 
         registroBoton.setText("Registrarse");
         registroBoton.addActionListener(new java.awt.event.ActionListener() {
@@ -101,9 +108,9 @@ public class Registro extends javax.swing.JPanel {
 
         apellidos.setText("Apellidos");
 
-        nombre1.addActionListener(new java.awt.event.ActionListener() {
+        apellido.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                nombre1ActionPerformed(evt);
+                apellidoActionPerformed(evt);
             }
         });
 
@@ -142,7 +149,7 @@ public class Registro extends javax.swing.JPanel {
                                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                                     .add(nick, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
                                     .add(nombre, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE)
-                                    .add(nombre1, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))))
+                                    .add(apellido, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, 198, Short.MAX_VALUE))))
                         .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                         .add(apellidos)
@@ -164,7 +171,7 @@ public class Registro extends javax.swing.JPanel {
                 .add(10, 10, 10)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(apellidos)
-                    .add(nombre1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
+                    .add(apellido, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))
                 .add(18, 18, 18)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                     .add(pass, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
@@ -181,11 +188,17 @@ public class Registro extends javax.swing.JPanel {
 
     private void registroBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_registroBotonActionPerformed
         // TODO add your handling code here:
-        if(pass.getToolTipText().equals(pass2.getToolTipText())){
-        cliente.registro(nick.getText(), nombre.getText(),apellidos.getText(), pass.getToolTipText());}
+        if(new String(pass.getPassword()).equals(new String(pass.getPassword()))){
+            try {
+                String password= new String(pass.getPassword());
+                cliente.registro(nick.getText(), nombre.getText(),apellido.getText(), password);
+            } catch (RemoteException ex) {
+                Logger.getLogger(Registro.class.getName()).log(Level.SEVERE, null, ex);
+            }
+}
         Login login=new Login(cliente);
-        v.setContentPane(login);
-        v.setVisible(true);
+        v.setVisible(false);
+       
         
     }//GEN-LAST:event_registroBotonActionPerformed
 
@@ -205,11 +218,12 @@ public class Registro extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_pass2ActionPerformed
 
-    private void nombre1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nombre1ActionPerformed
+    private void apellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_apellidoActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nombre1ActionPerformed
+    }//GEN-LAST:event_apellidoActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField apellido;
     private javax.swing.JLabel apellidos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -218,7 +232,6 @@ public class Registro extends javax.swing.JPanel {
     private javax.swing.JLabel jLabel5;
     private javax.swing.JTextField nick;
     private javax.swing.JTextField nombre;
-    private javax.swing.JTextField nombre1;
     private javax.swing.JPasswordField pass;
     private javax.swing.JPasswordField pass2;
     private javax.swing.JButton registroBoton;

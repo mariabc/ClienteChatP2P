@@ -16,6 +16,7 @@ import java.util.Vector;
 public class PrincipalChat extends javax.swing.JPanel {
 
     private ClienteImpl cliente;
+    private ventana v;
     private String nick;
     private HashMap<String,IClienteP2P> amigosConectados;
     private Vector amigosNombre;
@@ -24,12 +25,23 @@ public class PrincipalChat extends javax.swing.JPanel {
      */
     public PrincipalChat(ClienteImpl cliente, String nick) {
         initComponents();
+        v=new ventana();
         this.cliente=cliente;
         amigosNombre= new Vector();
         listaAmigos.setListData(amigosNombre);
+        v.setContentPane(this);
+        v.setVisible(true);
         
     }
 
+     public ventana getV() {
+        return v;
+    }
+
+    public void setV(ventana v) {
+        this.v = v;
+    }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
