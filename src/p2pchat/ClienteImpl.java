@@ -61,7 +61,7 @@ public class ClienteImpl implements ICliente{
     @Override
     public void notificarNuevoAmigo(Amigo amigo) {
         
-        principal.actualizaLista(amigo);
+        principal.actualizaLista(amigo,false);
         
        
     }
@@ -73,7 +73,12 @@ public class ClienteImpl implements ICliente{
 
     @Override
     public void borrarconectado(String nick) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        
+        Amigo amigo= new Amigo(nick);
+ 
+        
+        principal.actualizaLista(amigo,true);
+        
     }
 
     

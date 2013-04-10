@@ -31,7 +31,7 @@ public class P2PChat {
             ArrayList<String> loc = new ArrayList<String>();
 
 
-            String registryURL = "rmi://localhost:1099/callback";
+            String registryURL = "rmi://localhost:1099/p2pchat";
             IServidor serv = null;
             try {
                 serv = ( IServidor) Naming.lookup(registryURL);

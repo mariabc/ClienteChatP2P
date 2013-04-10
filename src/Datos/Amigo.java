@@ -22,7 +22,12 @@ public class Amigo implements Serializable{
         this.nombre = nombre;
         this.cliente = cliente;
     }
-
+    
+  
+    public Amigo(String nick) {
+        this.nick = nick;
+    }
+ 
     public String getNick() {
         return nick;
     }
