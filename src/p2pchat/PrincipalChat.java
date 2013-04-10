@@ -37,7 +37,7 @@ public class PrincipalChat extends javax.swing.JPanel {
         v.setVisible(true);
         tabla=new DefaultTableModel();
         tablaPeticiones.setModel(tabla);
-        
+        nickLabel.setText("Hola "+ this.nick);
         
     }
 
@@ -219,7 +219,7 @@ public class PrincipalChat extends javax.swing.JPanel {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        nickLabel.setText("Hola " + this.getNick());
+        nickLabel.setText("Hola ");
     }// </editor-fold>//GEN-END:initComponents
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
