@@ -5,6 +5,7 @@
 package p2pchat;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 import java.util.ArrayList;
 
 /**
@@ -13,17 +14,17 @@ import java.util.ArrayList;
  */
 public interface IServidor extends Remote{
     
-public void login(ICliente cliente,String nick, String pass);
+public void login(ICliente cliente,String nick, String pass)throws RemoteException;
 
-public void registro (ICliente cliente ,String nick, String nombre, String Apellido, String pass); //da
+public void registro (ICliente cliente ,String nick, String nombre, String Apellido, String pass)throws RemoteException; //da
 
-public void aceptarAmistad (String nickCliente, ArrayList<String> amigosAceptados);
+public void aceptarAmistad (String nickCliente, ArrayList<String> amigosAceptados)throws RemoteException;
 
-public void buscarAmigo(String nickCliente,String nombre);
+public void buscarAmigo(String nickCliente,String nombre)throws RemoteException;
 
-public void solicitarAmistad(String nickCliente,String nick);
+public void solicitarAmistad(String nickCliente,String nick)throws RemoteException;
 
-public void desconectarse(String nickCliente);
+public void desconectarse(String nickCliente)throws RemoteException;
 
 //public void enviarReferencia(String nickCliente, IClienteP2P refRemota);
 

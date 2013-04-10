@@ -5,6 +5,7 @@
 package p2pchat;
 
 import java.rmi.Remote;
+import java.rmi.RemoteException;
 
 /**
  *
@@ -12,6 +13,6 @@ import java.rmi.Remote;
  */
 public interface IClienteP2P extends Remote{
     
-    public void escribirPantalla(String mensaje);
+    public void escribirPantalla(String mensaje)throws RemoteException;
        
 }
