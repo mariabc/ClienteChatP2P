@@ -4,17 +4,18 @@
  */
 package p2pchat;
 
+import java.rmi.Remote;
 import java.util.ArrayList;
 
 /**
  *
  * @author Estevo
  */
-public interface IServidor {
+public interface IServidor extends Remote{
     
 public void login(ICliente cliente,String nick, String pass);
 
-public void registro (ICliente cliente ,String nick, String nombre, String Apellido,String pass); //da
+public void registro (ICliente cliente ,String nick, String nombre, String Apellido, String pass); //da
 
 public void aceptarAmistad (String nickCliente, ArrayList<String> amigosAceptados);
 

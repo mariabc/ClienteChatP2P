@@ -7,12 +7,13 @@ package p2pchat;
 import Datos.Amigo;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
+import java.rmi.server.UnicastRemoteObject;
 
 /**
  *
  * @author maria
  */
-public class ClienteImpl implements ICliente{
+public class ClienteImpl extends UnicastRemoteObject implements ICliente {
     
      private ventana v;
      private IServidor servidor;

@@ -13,6 +13,7 @@ import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import java.rmi.*;
 
 /**
  *
@@ -34,7 +35,7 @@ public class P2PChat {
             String registryURL = "rmi://localhost:1099/p2pchat";
             IServidor serv = null;
             try {
-                serv = ( IServidor) Naming.lookup(registryURL);
+                serv = (IServidor) Naming.lookup(registryURL);
             } catch (NotBoundException ex) {
                 Logger.getLogger(P2PChat.class.getName()).log(Level.SEVERE, null, ex);
             } catch (MalformedURLException ex) {

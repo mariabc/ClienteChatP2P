@@ -4,11 +4,13 @@
  */
 package p2pchat;
 
+import java.rmi.Remote;
+
 /**
  *
  * @author Estevo
  */
-public interface IClienteP2P {
+public interface IClienteP2P extends Remote{
     
     public void escribirPantalla(String mensaje);
        

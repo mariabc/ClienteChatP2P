@@ -5,13 +5,14 @@
 package p2pchat;
 
 import Datos.*;
+import java.rmi.Remote;
 import java.util.ArrayList;
 
 /**
  *
  * @author Estevo
  */
-public interface ICliente {
+public interface ICliente extends Remote{
     
     
     
