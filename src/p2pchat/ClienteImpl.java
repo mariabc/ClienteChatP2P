@@ -30,6 +30,7 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente {
         v = new ventana();
         this.servidor=serv;
         chat= new Login(this);
+        cliente=(ICliente)this;
         
     }
     
@@ -47,22 +48,25 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente {
 
     @Override
     public void killMensajeError(String error) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        System.out.println("Completar esto");
+        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
     @Override
     public void notificaAmistad(ArrayList<String> Amistad) {
+        if(!Amistad.isEmpty())
         principal.anhadirTabla(Amistad);
     }
 
     @Override
     public void notificarListaAmigos(ArrayList<Amigo> amigo) {
+        if(!amigo.isEmpty())
        principal.actualizaLista(amigo);
     }
 
     @Override
     public void notificarNuevoAmigo(Amigo amigo) {
-        
+        if(amigo!=null)
         principal.actualizaLista(amigo,false);
         
        
@@ -70,6 +74,7 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente {
 
     @Override
     public void notificarNuevaAmistad(String nombreAmigo) {
+        
         principal.anhadirTabla(nombreAmigo); //mirar
         
     }

@@ -8,6 +8,7 @@ import Datos.*;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Vector;
+import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -21,6 +22,7 @@ public class PrincipalChat extends javax.swing.JPanel {
     private String nick;
     private HashMap<String,IClienteP2P> amigosConectados;
     private Vector amigosNombre;
+    private DefaultTableModel tabla;
     /**
      * Creates new form PrincipalChat
      */
@@ -29,9 +31,13 @@ public class PrincipalChat extends javax.swing.JPanel {
         v=new ventana();
         this.cliente=cliente;
         amigosNombre= new Vector();
+        this.nick=nick;
         listaAmigos.setListData(amigosNombre);
         v.setContentPane(this);
         v.setVisible(true);
+        tabla=new DefaultTableModel();
+        tablaPeticiones.setModel(tabla);
+        
         
     }
 
@@ -42,6 +48,12 @@ public class PrincipalChat extends javax.swing.JPanel {
     public void setV(ventana v) {
         this.v = v;
     }
+
+    public String getNick() {
+        return nick;
+    }
+    
+    
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -74,7 +86,7 @@ public class PrincipalChat extends javax.swing.JPanel {
     
     public void anhadirTabla(ArrayList<String> amistad){
     
-    Object[] fila = new Object[8];
+    Object[] fila = new Object[2];
     
     
     DefaultTableModel tabla = new DefaultTableModel();
@@ -88,6 +100,24 @@ public class PrincipalChat extends javax.swing.JPanel {
     
     }
     
+      
+    public void anhadirTabla(String nombre){
+    
+    Object[] fila = new Object[3];
+    JButton aceptar= new JButton();
+    aceptar.setText("Aceptar");
+    JButton denegar= new JButton();
+    aceptar.setText("Denegar");
+    
+    fila[0]=nombre;
+    fila[1]=aceptar;
+    fila[2]=denegar;
+    tabla.addRow(fila);
+    
+    
+    this.tablaPeticiones.setModel(tabla);
+    
+    }
     
    
     
@@ -132,11 +162,11 @@ public class PrincipalChat extends javax.swing.JPanel {
 
         tablaPeticiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null},
-                {null, null}
+                {null, null, null},
+                {null, null, null}
             },
             new String [] {
-                "Nombre", ""
+                "Nombre", "", ""
             }
         ));
         jScrollPane2.setViewportView(tablaPeticiones);
@@ -159,14 +189,14 @@ public class PrincipalChat extends javax.swing.JPanel {
                                 .add(0, 0, Short.MAX_VALUE)))
                         .addContainerGap())
                     .add(layout.createSequentialGroup()
-                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(layout.createSequentialGroup()
-                                .add(25, 25, 25)
-                                .add(iniciarChat)))
+                        .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                        .add(21, 466, Short.MAX_VALUE))
+                    .add(layout.createSequentialGroup()
+                        .add(25, 25, 25)
+                        .add(iniciarChat)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 192, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(21, 21, 21))))
+                        .add(26, 26, 26))))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -189,7 +219,7 @@ public class PrincipalChat extends javax.swing.JPanel {
                 .addContainerGap(17, Short.MAX_VALUE))
         );
 
-        nickLabel.setText("Hola "+ nick);
+        nickLabel.setText("Hola " + this.getNick());
     }// </editor-fold>//GEN-END:initComponents
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
