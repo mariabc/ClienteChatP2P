@@ -42,7 +42,7 @@ public class P2PChat {
             } catch (RemoteException ex) {
                 Logger.getLogger(P2PChat.class.getName()).log(Level.SEVERE, null, ex);
             }
-            System.out.println("Conexión completada ");
+            System.out.println("Conexion completada ");
             try {
 
                 ICliente cliente = (ICliente) new ClienteImpl(serv);

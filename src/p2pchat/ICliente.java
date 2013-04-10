@@ -24,6 +24,8 @@ public void notificarListaAmigos(ArrayList<Amigo> amigo);
 public void notificarNuevoAmigo(Amigo amigo); //individual
 
 public void notificarNuevaAmistad(String nombreAmigo);//individual
-    
+
+public void borrarconectado(String nick);
+   
     
 }

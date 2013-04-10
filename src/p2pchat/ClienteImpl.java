@@ -34,9 +34,9 @@ public class ClienteImpl {
     
     }
      
-     public void registro(String nick, String nombre, String contraseña){
+     public void registro(String nick, String nombre, String apellido,String contraseña){
      
-         servidor.registro(cliente, nick, nombre, nick);
+         servidor.registro(cliente, nick, nombre, apellido, nick);
              
              }
     
