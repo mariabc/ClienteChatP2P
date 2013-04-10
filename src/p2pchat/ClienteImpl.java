@@ -52,7 +52,7 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente {
 
     @Override
     public void notificaAmistad(ArrayList<String> Amistad) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        principal.anhadirTabla(Amistad);
     }
 
     @Override
@@ -70,7 +70,8 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente {
 
     @Override
     public void notificarNuevaAmistad(String nombreAmigo) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+        principal.anhadirTabla(nombreAmigo); //mirar
+        
     }
 
     @Override
