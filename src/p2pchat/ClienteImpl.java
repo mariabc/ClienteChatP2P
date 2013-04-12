@@ -32,6 +32,13 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente {
         chat= new Login(this);
         cliente=(ICliente)this;
         
+        
+    }
+    
+    public void setPrincipal(PrincipalChat principal){
+    
+    this.principal=principal;
+    
     }
     
      public void login(String nick, String contrasenha) throws RemoteException{
@@ -45,6 +52,12 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente {
          servidor.registro(cliente, nick, nombre, apellido, contraseña);
              
              }
+     
+     public void buscar(String nick, String nickBuscar) throws RemoteException{
+         
+         servidor.buscarAmigo(nick,nickBuscar);
+     
+     }
 
     @Override
     public void killMensajeError(String error) {
