@@ -12,6 +12,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.swing.JButton;
+import javax.swing.ListModel;
 import javax.swing.table.DefaultTableModel;
 
 /**
@@ -34,13 +35,16 @@ public class PrincipalChat extends javax.swing.JPanel {
         v=new ventana();
         this.cliente=cliente;
         amigosNombre= new Vector();
-        this.nick=nick;
         listaAmigos.setListData(amigosNombre);
+        this.nick=nick;
         v.setContentPane(this);
         v.setVisible(true);
-        tabla=new DefaultTableModel();
+        tabla= (DefaultTableModel) tablaPeticiones.getModel();
         tablaPeticiones.setModel(tabla);
         nickLabel.setText("Hola "+ this.nick);
+        amigosConectados= new HashMap<String, IClienteP2P>();
+        mandarSolicitud.setVisible(false);
+        amigoBuscado.setText(" ");
         
         
     }
@@ -75,28 +79,28 @@ public class PrincipalChat extends javax.swing.JPanel {
         amigosNombre.remove(amigo.getNick());
         
         }
+        
+        listaAmigos.setListData(amigosNombre);
     
     }
     
     public void actualizaLista(ArrayList<Amigo> amigos){
-        amigosConectados= new HashMap<String, IClienteP2P>();
+        
         
         for(int i=0; i<amigos.size();i++){
         amigosConectados.put(amigos.get(i).getNick(), amigos.get(i).getCliente());
         amigosNombre.add(amigos.get(i).getNick());
         }
+        listaAmigos.setListData(amigosNombre);
         
     }
     
     public void anhadirTabla(ArrayList<String> amistad){
     
     Object[] fila = new Object[2];
-    
-    
-    DefaultTableModel tabla = new DefaultTableModel();
+   
     for(int i=0;i<amistad.size();i++){
     fila[0]=amistad.get(i);
-    fila[1]="hola";
     tabla.addRow(fila);
     }
      
@@ -107,15 +111,9 @@ public class PrincipalChat extends javax.swing.JPanel {
       
     public void anhadirTabla(String nombre){
     
-    Object[] fila = new Object[3];
-    JButton aceptar= new JButton();
-    aceptar.setText("Aceptar");
-    JButton denegar= new JButton();
-    aceptar.setText("Denegar");
-    
+    Object[] fila = new Object[2];
     fila[0]=nombre;
-    fila[1]=aceptar;
-    fila[2]=denegar;
+   
     tabla.addRow(fila);
     
     
@@ -135,12 +133,13 @@ public class PrincipalChat extends javax.swing.JPanel {
         cerrarSesion = new javax.swing.JButton();
         jScrollPane2 = new javax.swing.JScrollPane();
         tablaPeticiones = new javax.swing.JTable();
-        buscar = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        resultado = new javax.swing.JLabel();
-        jButton2 = new javax.swing.JButton();
+        anhadirAmigos = new javax.swing.JButton();
+        buscar = new javax.swing.JTextField();
+        buscarBoton = new javax.swing.JButton();
+        amigoBuscado = new javax.swing.JLabel();
+        mandarSolicitud = new javax.swing.JButton();
 
         nickLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         nickLabel.setText("jLabel1");
@@ -170,31 +169,48 @@ public class PrincipalChat extends javax.swing.JPanel {
 
         tablaPeticiones.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null},
-                {null, null, null}
+
             },
             new String [] {
-                "Nombre", "", ""
+                "Nombre", "Aceptar"
             }
-        ));
-        jScrollPane2.setViewportView(tablaPeticiones);
+        ) {
+            Class[] types = new Class [] {
+                java.lang.Object.class, java.lang.Boolean.class
+            };
 
-        buscar.setText("jTextField1");
-        buscar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                buscarActionPerformed(evt);
+            public Class getColumnClass(int columnIndex) {
+                return types [columnIndex];
             }
         });
+        jScrollPane2.setViewportView(tablaPeticiones);
 
         jLabel2.setText("Busca a tus amigos!!");
 
         jLabel3.setText("Solicitudes de amistad");
 
-        jButton1.setText("Buscar");
+        anhadirAmigos.setText("Añadir amigos");
+        anhadirAmigos.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                anhadirAmigosActionPerformed(evt);
+            }
+        });
 
-        resultado.setText("jLabel4");
+        buscarBoton.setText("Buscar");
+        buscarBoton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                buscarBotonActionPerformed(evt);
+            }
+        });
 
-        jButton2.setText("Añadir como amigo");
+        amigoBuscado.setText("jLabel4");
+
+        mandarSolicitud.setText("Mandar solicitud amistad");
+        mandarSolicitud.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                mandarSolicitudActionPerformed(evt);
+            }
+        });
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -207,33 +223,39 @@ public class PrincipalChat extends javax.swing.JPanel {
                         .add(nickLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(cerrarSesion))
+                    .add(jLabel1)
                     .add(layout.createSequentialGroup()
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                             .add(layout.createSequentialGroup()
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                    .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 195, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                    .add(layout.createSequentialGroup()
-                                        .add(25, 25, 25)
-                                        .add(iniciarChat)))
+                                .add(19, 19, 19)
+                                .add(iniciarChat)))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                .add(layout.createSequentialGroup()
+                                    .add(171, 171, 171)
+                                    .add(mandarSolicitud))
+                                .add(layout.createSequentialGroup()
+                                    .add(116, 116, 116)
+                                    .add(jLabel3))
+                                .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                                    .add(102, 102, 102)
+                                    .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                        .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 192, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .add(layout.createSequentialGroup()
+                                            .add(33, 33, 33)
+                                            .add(anhadirAmigos)))
+                                    .add(151, 151, 151)))
+                            .add(layout.createSequentialGroup()
                                 .add(53, 53, 53)
-                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.TRAILING)
+                                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                                    .add(amigoBuscado)
                                     .add(layout.createSequentialGroup()
                                         .add(jLabel2)
-                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
-                                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                            .add(layout.createSequentialGroup()
-                                                .add(buscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 161, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                                                .add(18, 18, 18)
-                                                .add(jButton1))
-                                            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
-                                                .add(jLabel3)
-                                                .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 192, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE))))
-                                    .add(layout.createSequentialGroup()
-                                        .add(resultado)
-                                        .add(87, 87, 87)
-                                        .add(jButton2))))
-                            .add(jLabel1))
-                        .add(0, 0, Short.MAX_VALUE)))
+                                        .add(18, 18, 18)
+                                        .add(buscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 154, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
+                                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
+                                        .add(buscarBoton)))))))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
@@ -249,27 +271,27 @@ public class PrincipalChat extends javax.swing.JPanel {
                         .addContainerGap()
                         .add(cerrarSesion)))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(layout.createSequentialGroup()
                         .add(jScrollPane1, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 233, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .add(iniciarChat)
-                        .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                        .add(32, 32, 32)
+                        .add(iniciarChat))
                     .add(layout.createSequentialGroup()
-                        .add(0, 0, Short.MAX_VALUE)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
                             .add(jLabel2)
                             .add(buscar, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                            .add(jButton1))
-                        .add(18, 18, 18)
+                            .add(buscarBoton))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
                         .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
-                            .add(resultado)
-                            .add(jButton2))
-                        .add(81, 81, 81)
+                            .add(amigoBuscado)
+                            .add(mandarSolicitud))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                         .add(jLabel3)
                         .add(18, 18, 18)
                         .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 127, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
-                        .add(73, 73, 73))))
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.UNRELATED)
+                        .add(anhadirAmigos)))
+                .addContainerGap(98, Short.MAX_VALUE))
         );
 
         nickLabel.setText("Hola ");
@@ -281,33 +303,96 @@ public class PrincipalChat extends javax.swing.JPanel {
 
     private void iniciarChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarChatActionPerformed
         // TODO add your handling code here:
-        String nick= (String) listaAmigos.getSelectedValue();
+        String nick1= (String) listaAmigos.getSelectedValue();
+        Chat chat= new Chat((IClienteP2P) amigosConectados.get(nick1));
     }//GEN-LAST:event_iniciarChatActionPerformed
 
-    private void buscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarActionPerformed
+    
+    public void resultadoBusqueda(String nombreAmigo){
+     
+        amigoBuscado.setText(nombreAmigo);
+        mandarSolicitud.setVisible(true);
+    
+    }
+    
+    
+    
+    
+    private void anhadirAmigosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_anhadirAmigosActionPerformed
+        // TODO add your handling code here:
+        ArrayList<String> amigosAceptados= new ArrayList<String>();
+        ArrayList<String> amigosRechazados=new ArrayList<String>();
+       
+        for(int i=0; i<tabla.getRowCount();i++){
+        if((Boolean) tabla.getValueAt(i, 1)!=null){
+             amigosAceptados.add((String)tabla.getValueAt(i, 0));
+        }
+        else{
+        
+        amigosRechazados.add((String)tabla.getValueAt(i, 0));
+        
+        }
+        
+        }
+        
+        while(tabla.getRowCount() > 0){
+            tabla.removeRow(0);
+        
+        }
+        
+        tablaPeticiones.setModel(tabla);
+        
+        try {
+            cliente.aceptarAmistad(nick, amigosAceptados, amigosRechazados);
+            
+        } catch (RemoteException ex) {
+            Logger.getLogger(PrincipalChat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_anhadirAmigosActionPerformed
+
+    private void buscarBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_buscarBotonActionPerformed
         try {
             // TODO add your handling code here:
             cliente.buscar(nick,buscar.getText());
         } catch (RemoteException ex) {
             Logger.getLogger(PrincipalChat.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }//GEN-LAST:event_buscarBotonActionPerformed
+
+    private void mandarSolicitudActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_mandarSolicitudActionPerformed
+        // TODO add your handling code here:
+        if(amigoBuscado.getText()!=" "){
+           
+            try {
+                cliente.solicitarAmistad(nick, amigoBuscado.getText());
+                amigoBuscado.setText(" ");
+                mandarSolicitud.setVisible(false);
+            } catch (RemoteException ex) {
+                Logger.getLogger(PrincipalChat.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            
         
-    }//GEN-LAST:event_buscarActionPerformed
+        
+        }
+        
+    }//GEN-LAST:event_mandarSolicitudActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel amigoBuscado;
+    private javax.swing.JButton anhadirAmigos;
     private javax.swing.JTextField buscar;
+    private javax.swing.JButton buscarBoton;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JButton iniciarChat;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JList listaAmigos;
+    private javax.swing.JButton mandarSolicitud;
     private javax.swing.JLabel nickLabel;
-    private javax.swing.JLabel resultado;
     private javax.swing.JTable tablaPeticiones;
     // End of variables declaration//GEN-END:variables
 }

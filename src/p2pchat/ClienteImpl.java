@@ -13,7 +13,7 @@ import java.rmi.server.UnicastRemoteObject;
  *
  * @author maria
  */
-public class ClienteImpl extends UnicastRemoteObject implements ICliente {
+public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClienteP2P {
     
      private ventana v;
      private IServidor servidor;
@@ -47,6 +47,12 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente {
     
     }
      
+     public void solicitarAmistad(String nickCliente,String nick)throws RemoteException{
+         System.out.println(nickCliente + " " + nick);
+         servidor.solicitarAmistad(nickCliente, nick);
+     
+     }
+     
      public void registro(String nick, String nombre, String apellido,String contraseña) throws RemoteException{
      
          servidor.registro(cliente, nick, nombre, apellido, contraseña);
@@ -56,6 +62,13 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente {
      public void buscar(String nick, String nickBuscar) throws RemoteException{
          
          servidor.buscarAmigo(nick,nickBuscar);
+         
+     
+     }
+     
+     public void aceptarAmistad (String nickCliente, ArrayList<String> amigosAceptados, ArrayList<String> amigosRechazados)throws RemoteException{
+     
+     servidor.aceptarAmistad(nickCliente, amigosAceptados, amigosRechazados);
      
      }
 
@@ -65,33 +78,47 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente {
         //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-    @Override
-    public void notificaAmistad(ArrayList<String> Amistad) {
-        if(!Amistad.isEmpty())
-        principal.anhadirTabla(Amistad);
-    }
+    //metodos de notificar amistad
+    
+        @Override
+        public void notificaAmistad(ArrayList<String> Amistad) {
+            if(!Amistad.isEmpty())
+            principal.anhadirTabla(Amistad);
 
-    @Override
-    public void notificarListaAmigos(ArrayList<Amigo> amigo) {
-        if(!amigo.isEmpty())
-       principal.actualizaLista(amigo);
-    }
+        } 
 
-    @Override
-    public void notificarNuevoAmigo(Amigo amigo) {
-        if(amigo!=null)
-        principal.actualizaLista(amigo,false);
+        @Override
+        public void notificarNuevaAmistad(String nombreAmigo) {
+            System.out.println("Nuevo amigo" + nombreAmigo);
+            principal.anhadirTabla(nombreAmigo); //mirar
+
+        }
+
+    //--------//
+
+    //metodos notificar amigos conectados
         
-       
-    }
+        @Override
+        public void notificarListaAmigos(ArrayList<Amigo> amigo) {
+            System.out.println("Entra");
+            if(!amigo.isEmpty()){
+           System.out.println(amigo.get(0).getNick());
+           principal.actualizaLista(amigo);}
+        }
 
-    @Override
-    public void notificarNuevaAmistad(String nombreAmigo) {
-        
-        principal.anhadirTabla(nombreAmigo); //mirar
-        
-    }
+        @Override
+        public void notificarNuevoAmigo(Amigo amigo) {
+            System.out.println("Nuevo amigo" + amigo.getNick());
+            if(amigo!=null)
+            principal.actualizaLista(amigo,false);
 
+
+        }
+
+   //-------//
+    
+    
+    
     @Override
     public void borrarconectado(String nick) {
         
@@ -100,8 +127,21 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente {
         
         principal.actualizaLista(amigo,true);
         
+    }  
+    
+    @Override
+    public void resultadoBusquedaAmigo(String NombreAmigo) throws RemoteException {
+        if(!NombreAmigo.isEmpty())
+            principal.resultadoBusqueda(NombreAmigo);
     }
 
+
+    @Override
+    public void escribirPantalla(String mensaje) throws RemoteException {
+        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    }
+
+  
     
     
     

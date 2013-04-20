@@ -5,7 +5,7 @@
 package Datos;
 
 import java.io.Serializable;
-import p2pchat.*;
+import p2pchat.IClienteP2P;
 
 /**
  *
@@ -17,17 +17,24 @@ public class Amigo implements Serializable{
  private String nombre;
  private IClienteP2P cliente;
 
+    public Amigo() {
+    }
+
+ 
+ 
+    public Amigo(String nick) {
+        this.nick = nick;
+    }
+ 
+ 
+ 
+
     public Amigo(String nick, String nombre, IClienteP2P cliente) {
         this.nick = nick;
         this.nombre = nombre;
         this.cliente = cliente;
     }
-    
-  
-    public Amigo(String nick) {
-        this.nick = nick;
-    }
- 
+
     public String getNick() {
         return nick;
     }

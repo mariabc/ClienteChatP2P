@@ -4,20 +4,19 @@
  */
 package p2pchat;
 
-import Datos.*;
-import java.rmi.Remote;
+import Datos.Amigo;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 
-/**
+/** 
  *
  * @author Estevo
  */
-public interface ICliente extends Remote{
+public interface ICliente extends IClienteP2P  {
     
     
     
-public void killMensajeError (String error) throws RemoteException;
+public void killMensajeError (String error)throws RemoteException;
 
 public void notificaAmistad(ArrayList<String> Amistad)throws RemoteException;
 
@@ -27,7 +26,8 @@ public void notificarNuevoAmigo(Amigo amigo)throws RemoteException; //individual
 
 public void notificarNuevaAmistad(String nombreAmigo)throws RemoteException;//individual
 
-public void borrarconectado(String nick)throws RemoteException;
-   
+public void resultadoBusquedaAmigo(String NombreAmigo)throws RemoteException;
     
+public void borrarconectado(String nick)throws RemoteException;
+
 }
