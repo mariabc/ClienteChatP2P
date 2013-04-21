@@ -13,6 +13,8 @@ import java.rmi.RemoteException;
  */
 public interface IClienteP2P extends Remote{
     
-    public void escribirPantalla(String mensaje)throws RemoteException;
+    public void envioMensaje(IClienteP2P clientep2p,String mensaje, String emisor)throws RemoteException;
+    
+    public void recepcionMensaje(String mensaje, String emisor)throws java.rmi.RemoteException;
        
 }

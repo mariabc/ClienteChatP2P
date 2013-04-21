@@ -8,6 +8,8 @@ import Datos.*;
 import java.rmi.RemoteException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Iterator;
+import java.util.Map;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -27,6 +29,7 @@ public class PrincipalChat extends javax.swing.JPanel {
     private HashMap<String,IClienteP2P> amigosConectados;
     private Vector amigosNombre;
     private DefaultTableModel tabla;
+    private HashMap<String, Chat> conversaciones;
     /**
      * Creates new form PrincipalChat
      */
@@ -45,6 +48,7 @@ public class PrincipalChat extends javax.swing.JPanel {
         amigosConectados= new HashMap<String, IClienteP2P>();
         mandarSolicitud.setVisible(false);
         amigoBuscado.setText(" ");
+        conversaciones= new HashMap<String, Chat>();
         
         
     }
@@ -62,6 +66,54 @@ public class PrincipalChat extends javax.swing.JPanel {
     }
     
     
+    public void enviarMensaje(String mensaje, String receptor){
+        
+        Iterator it = amigosConectados.entrySet().iterator();
+        
+        while (it.hasNext()) {
+            Map.Entry e = (Map.Entry) it.next();
+
+            if (e.getKey().equals(receptor)) {
+                try {
+                    this.cliente.envioMensaje((IClienteP2P) e.getValue(), mensaje, nick);
+                } catch (RemoteException ex) {
+                    Logger.getLogger(PrincipalChat.class.getName()).log(Level.SEVERE, null, ex);
+                }
+                break;
+            }
+        }
+
+
+
+    } 
+    
+    public void recibirMensaje(String mensaje, String emisor){
+       Iterator it = amigosConectados.entrySet().iterator();
+       Chat chat;
+        
+        
+
+        if (!conversaciones.containsKey(emisor)) {
+            chat = new Chat(nick, emisor , this);
+            conversaciones.put(emisor, chat);
+
+        } else {
+            chat = (Chat) conversaciones.get(emisor);
+        }
+        
+        chat.setVisible(true);
+        chat.escribePantalla(mensaje);
+    
+    
+    }
+    
+    
+    public void resultadoBusqueda(String nombreAmigo){
+     
+        amigoBuscado.setText(nombreAmigo);
+        mandarSolicitud.setVisible(true);
+    
+    }
     
     /**
      * This method is called from within the constructor to initialize the form.
@@ -303,17 +355,31 @@ public class PrincipalChat extends javax.swing.JPanel {
 
     private void iniciarChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarChatActionPerformed
         // TODO add your handling code here:
-        String nick1= (String) listaAmigos.getSelectedValue();
-        Chat chat= new Chat((IClienteP2P) amigosConectados.get(nick1));
+        String receptor= (String) listaAmigos.getSelectedValue();
+        IClienteP2P receptorp2p;
+        //try {
+       
+        Iterator it = amigosConectados.entrySet().iterator();
+        while (it.hasNext()) {
+            Map.Entry e = (Map.Entry) it.next();
+
+            if (e.getKey().equals(receptor)) {
+                Chat chat;
+                if (conversaciones.containsKey(receptor)) {
+                    chat = conversaciones.get(receptor);
+                } else {
+                    receptorp2p = (IClienteP2P) e.getValue();
+                    chat = new Chat(nick, receptor, this);
+                    conversaciones.put(receptor, chat);
+                }
+
+                chat.setVisible(true);
+                
+                break;
+            }
+        }
     }//GEN-LAST:event_iniciarChatActionPerformed
 
-    
-    public void resultadoBusqueda(String nombreAmigo){
-     
-        amigoBuscado.setText(nombreAmigo);
-        mandarSolicitud.setVisible(true);
-    
-    }
     
     
     

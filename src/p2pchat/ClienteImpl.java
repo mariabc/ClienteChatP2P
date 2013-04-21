@@ -135,11 +135,20 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClient
             principal.resultadoBusqueda(NombreAmigo);
     }
 
+    @Override
+    public void envioMensaje(IClienteP2P clientep2p, String mensaje, String emisor) throws RemoteException {
+        clientep2p.recepcionMensaje(mensaje, emisor);
+    }
 
     @Override
-    public void escribirPantalla(String mensaje) throws RemoteException {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+    public void recepcionMensaje(String mensaje, String emisor) throws RemoteException {
+       principal.recibirMensaje(mensaje, emisor);
     }
+
+   
+
+
+   
 
   
     

@@ -4,6 +4,10 @@
  */
 package p2pchat;
 
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author maria
@@ -15,6 +19,10 @@ public class Chat extends javax.swing.JPanel {
      */
     
     private ventana v;
+    private String emisor;
+    private String receptor;
+    private PrincipalChat principal;
+   
     
     
    
@@ -26,12 +34,17 @@ public class Chat extends javax.swing.JPanel {
         this.v = v;
     }
     
-    public Chat(IClienteP2P cliente) {
+    public Chat(String emisor, String receptor,PrincipalChat principal) {
         initComponents();
         v=new ventana();
         
         v.setVisible(true);
         v.setContentPane(this);
+        this.principal=principal;
+        this.emisor=emisor;
+        this.receptor=receptor;
+        this.nicks.setText(emisor + " hablando con " + receptor);
+        
     }
 
     /**
@@ -44,26 +57,31 @@ public class Chat extends javax.swing.JPanel {
     private void initComponents() {
 
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTextArea1 = new javax.swing.JTextArea();
+        textoMandar = new javax.swing.JTextArea();
         enviarMensaje = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
+        nicks = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTextArea2 = new javax.swing.JTextArea();
+        textoMensajes = new javax.swing.JTextArea();
 
-        jTextArea1.setColumns(20);
-        jTextArea1.setRows(5);
-        jScrollPane1.setViewportView(jTextArea1);
+        textoMandar.setColumns(20);
+        textoMandar.setRows(5);
+        jScrollPane1.setViewportView(textoMandar);
 
         enviarMensaje.setText("Enviar");
+        enviarMensaje.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                enviarMensajeActionPerformed(evt);
+            }
+        });
 
-        jLabel1.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
-        jLabel1.setText("jLabel1");
+        nicks.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
+        nicks.setText("jLabel1");
 
-        jTextArea2.setEditable(false);
-        jTextArea2.setColumns(20);
-        jTextArea2.setRows(5);
-        jTextArea2.setAutoscrolls(false);
-        jScrollPane2.setViewportView(jTextArea2);
+        textoMensajes.setEditable(false);
+        textoMensajes.setColumns(20);
+        textoMensajes.setRows(5);
+        textoMensajes.setAutoscrolls(false);
+        jScrollPane2.setViewportView(textoMensajes);
 
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
@@ -78,7 +96,7 @@ public class Chat extends javax.swing.JPanel {
                         .add(enviarMensaje)
                         .add(39, 39, 39))
                     .add(layout.createSequentialGroup()
-                        .add(jLabel1)
+                        .add(nicks)
                         .addContainerGap(org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .add(layout.createSequentialGroup()
                         .add(jScrollPane2)
@@ -88,7 +106,7 @@ public class Chat extends javax.swing.JPanel {
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(14, 14, 14)
-                .add(jLabel1)
+                .add(nicks)
                 .add(18, 18, 18)
                 .add(jScrollPane2, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE, 203, org.jdesktop.layout.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, 33, Short.MAX_VALUE)
@@ -101,12 +119,31 @@ public class Chat extends javax.swing.JPanel {
                         .add(31, 31, 31))))
         );
     }// </editor-fold>//GEN-END:initComponents
+
+    public void escribePantalla(String mensaje){
+           String mensaje1;
+           mensaje1=receptor + "-->" + mensaje +"\n";
+           textoMensajes.append(mensaje1);
+        
+    
+    }
+    
+    private void enviarMensajeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_enviarMensajeActionPerformed
+        String mensaje;
+        
+            
+            principal.enviarMensaje(textoMandar.getText(),receptor);
+            mensaje=emisor + "-->" + textoMandar.getText()+"\n";
+            textoMensajes.append(mensaje);
+        
+    }//GEN-LAST:event_enviarMensajeActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton enviarMensaje;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
-    private javax.swing.JTextArea jTextArea1;
-    private javax.swing.JTextArea jTextArea2;
+    private javax.swing.JLabel nicks;
+    private javax.swing.JTextArea textoMandar;
+    private javax.swing.JTextArea textoMensajes;
     // End of variables declaration//GEN-END:variables
 }
