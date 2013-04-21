@@ -145,10 +145,10 @@ public class Login extends javax.swing.JPanel {
     }//GEN-LAST:event_passActionPerformed
 
     private void loginBotonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBotonActionPerformed
-         
+         v.setVisible(false);  
         PrincipalChat pchat=new PrincipalChat(cliente,nick.getText());
-         cliente.setPrincipal(pchat);
-         
+        cliente.setPrincipal(pchat);
+       
          try {
             // TODO add your handling code here:
             System.out.println(new String(pass.getPassword()));
@@ -159,8 +159,9 @@ public class Login extends javax.swing.JPanel {
             Logger.getLogger(Login.class.getName()).log(Level.SEVERE, null, ex);
         }
        
+         
         
-        v.setVisible(false);
+         
         
     }//GEN-LAST:event_loginBotonActionPerformed
 

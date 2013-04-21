@@ -4,6 +4,7 @@
  */
 package p2pchat;
 
+import static java.awt.image.ImageObserver.WIDTH;
 import java.rmi.RemoteException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -44,6 +45,7 @@ public class Chat extends javax.swing.JPanel {
         this.emisor=emisor;
         this.receptor=receptor;
         this.nicks.setText(emisor + " hablando con " + receptor);
+        v.setDefaultCloseOperation(WIDTH);
         
     }
 

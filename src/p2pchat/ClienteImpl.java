@@ -18,7 +18,7 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClient
      private ventana v;
      private IServidor servidor;
      private ICliente cliente;
-     private Login chat;
+     private Login login;
      private PrincipalChat principal;
 
     
@@ -29,7 +29,7 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClient
 
         v = new ventana();
         this.servidor=serv;
-        chat= new Login(this);
+        login= new Login(this);
         cliente=(ICliente)this;
         
         
@@ -43,7 +43,8 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClient
     
      public void login(String nick, String contrasenha) throws RemoteException{
     
-    servidor.login(cliente, nick, contrasenha);
+      servidor.login(cliente, nick, contrasenha);
+      
     
     }
      
