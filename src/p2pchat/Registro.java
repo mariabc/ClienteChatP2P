@@ -37,6 +37,7 @@ public class Registro extends javax.swing.JPanel {
     public Registro(ClienteImpl cliente) {
         initComponents();
         v=new ventana();
+        v.setSize(474, 426);
         this.cliente=cliente;
         v.setVisible(true);
         v.setContentPane(this);

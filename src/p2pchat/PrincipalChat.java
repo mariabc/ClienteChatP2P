@@ -36,6 +36,7 @@ public class PrincipalChat extends javax.swing.JPanel {
     public PrincipalChat(ClienteImpl cliente, String nick) {
         initComponents();
         v=new ventana();
+        v.setSize(674, 446);
         this.cliente=cliente;
         amigosNombre= new Vector();
         listaAmigos.setListData(amigosNombre);
@@ -192,6 +193,8 @@ public class PrincipalChat extends javax.swing.JPanel {
         buscarBoton = new javax.swing.JButton();
         amigoBuscado = new javax.swing.JLabel();
         mandarSolicitud = new javax.swing.JButton();
+
+        setSize(new java.awt.Dimension(674, 476));
 
         nickLabel.setFont(new java.awt.Font("Lucida Grande", 0, 18)); // NOI18N
         nickLabel.setText("jLabel1");
@@ -350,7 +353,12 @@ public class PrincipalChat extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void cerrarSesionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cerrarSesionActionPerformed
-        // TODO add your handling code here:
+        try {
+            cliente.cerrarSesion(nick);
+        } catch (RemoteException ex) {
+            Logger.getLogger(PrincipalChat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        v.dispose();
     }//GEN-LAST:event_cerrarSesionActionPerformed
 
     private void iniciarChatActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_iniciarChatActionPerformed

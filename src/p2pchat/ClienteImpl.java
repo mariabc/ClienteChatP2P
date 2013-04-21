@@ -72,11 +72,16 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClient
      servidor.aceptarAmistad(nickCliente, amigosAceptados, amigosRechazados);
      
      }
+     
+     public void cerrarSesion(String nick) throws RemoteException{
+     
+         servidor.desconectarse(nick);
+     
+     }
 
     @Override
     public void killMensajeError(String error) {
-        System.out.println("Completar esto");
-        //throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+       login.mensajeError(error);
     }
 
     //metodos de notificar amistad
@@ -145,14 +150,5 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClient
     public void recepcionMensaje(String mensaje, String emisor) throws RemoteException {
        principal.recibirMensaje(mensaje, emisor);
     }
-
-   
-
-
-   
-
-  
-    
-    
     
 }
