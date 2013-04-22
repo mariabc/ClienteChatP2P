@@ -35,6 +35,7 @@ public class Login extends javax.swing.JPanel {
         initComponents();
         v=new ventana();
         error.setText(" ");
+        v.setSize(420,438);
         this.cliente=cliente;
         v.setVisible(true);
         v.setContentPane(this);
@@ -65,9 +66,9 @@ public class Login extends javax.swing.JPanel {
         error = new javax.swing.JLabel();
         darBaja = new javax.swing.JButton();
 
-        setMaximumSize(new java.awt.Dimension(400, 458));
-        setMinimumSize(new java.awt.Dimension(400, 458));
-        setPreferredSize(new java.awt.Dimension(400, 378));
+        setMaximumSize(new java.awt.Dimension(420, 458));
+        setMinimumSize(new java.awt.Dimension(420, 458));
+        setPreferredSize(new java.awt.Dimension(420, 458));
 
         pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -142,11 +143,11 @@ public class Login extends javax.swing.JPanel {
                     .add(layout.createSequentialGroup()
                         .add(95, 95, 95)
                         .add(error)))
-                .addContainerGap(61, Short.MAX_VALUE))
+                .addContainerGap(81, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(0, 0, Short.MAX_VALUE)
                 .add(darBaja)
-                .add(133, 133, 133))
+                .add(136, 136, 136))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)

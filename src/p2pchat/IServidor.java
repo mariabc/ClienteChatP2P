@@ -16,9 +16,9 @@ public interface IServidor extends Remote {
     
 public void login(ICliente cliente,String nick, String pass) throws RemoteException;
 
-public void darBaja (String nick, String password) throws RemoteException;
+public void darBaja (ICliente cliente,String nick,String password) throws RemoteException;
 
-public void cambiarContrasenha (String nick, String newPass, String oldPass);
+public void cambiarContrasenha (String nick, String newPass, String oldPass)throws RemoteException;
 
 public void registro (ICliente cliente ,String nick, String nombre, String Apellido, String pass) throws RemoteException;; //da
 

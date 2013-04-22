@@ -30,6 +30,7 @@ public class PrincipalChat extends javax.swing.JPanel {
     private Vector amigosNombre;
     private DefaultTableModel tabla;
     private HashMap<String, Chat> conversaciones;
+    private CambiarPass cpass;
     /**
      * Creates new form PrincipalChat
      */
@@ -116,6 +117,15 @@ public class PrincipalChat extends javax.swing.JPanel {
     
     }
     
+     public void cambiarContrasenha (String nick, String newPass, String oldPass){
+        try {
+            cliente.cambiarContrasenha(nick, newPass, oldPass);
+        } catch (RemoteException ex) {
+            Logger.getLogger(PrincipalChat.class.getName()).log(Level.SEVERE, null, ex);
+        }
+     
+     }
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -173,6 +183,12 @@ public class PrincipalChat extends javax.swing.JPanel {
     this.tablaPeticiones.setModel(tabla);
     
     }
+    
+    public void mensajeError(String error){
+    
+       cpass.cambiarMensaje(error);
+    
+    }
    
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
@@ -193,6 +209,7 @@ public class PrincipalChat extends javax.swing.JPanel {
         buscarBoton = new javax.swing.JButton();
         amigoBuscado = new javax.swing.JLabel();
         mandarSolicitud = new javax.swing.JButton();
+        cambiarPass = new javax.swing.JButton();
 
         setSize(new java.awt.Dimension(674, 476));
 
@@ -267,16 +284,25 @@ public class PrincipalChat extends javax.swing.JPanel {
             }
         });
 
+        cambiarPass.setText("Cambiar contraseña");
+        cambiarPass.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cambiarPassActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
             .add(layout.createSequentialGroup()
                 .add(28, 28, 28)
-                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
+                .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(layout.createSequentialGroup()
                         .add(nickLabel)
                         .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED, org.jdesktop.layout.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .add(cambiarPass)
+                        .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                         .add(cerrarSesion))
                     .add(jLabel1)
                     .add(layout.createSequentialGroup()
@@ -324,7 +350,9 @@ public class PrincipalChat extends javax.swing.JPanel {
                         .add(jLabel1))
                     .add(layout.createSequentialGroup()
                         .addContainerGap()
-                        .add(cerrarSesion)))
+                        .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.BASELINE)
+                            .add(cerrarSesion)
+                            .add(cambiarPass))))
                 .addPreferredGap(org.jdesktop.layout.LayoutStyle.RELATED)
                 .add(layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING, false)
                     .add(layout.createSequentialGroup()
@@ -452,11 +480,25 @@ public class PrincipalChat extends javax.swing.JPanel {
         
     }//GEN-LAST:event_mandarSolicitudActionPerformed
 
+    private void cambiarPassActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cambiarPassActionPerformed
+        // TODO add your handling code here:
+        
+         cpass=new CambiarPass(this, nick);
+      
+         v.setVisible(false);
+         
+         
+        
+        
+        
+    }//GEN-LAST:event_cambiarPassActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel amigoBuscado;
     private javax.swing.JButton anhadirAmigos;
     private javax.swing.JTextField buscar;
     private javax.swing.JButton buscarBoton;
+    private javax.swing.JButton cambiarPass;
     private javax.swing.JButton cerrarSesion;
     private javax.swing.JButton iniciarChat;
     private javax.swing.JLabel jLabel1;
@@ -469,4 +511,6 @@ public class PrincipalChat extends javax.swing.JPanel {
     private javax.swing.JLabel nickLabel;
     private javax.swing.JTable tablaPeticiones;
     // End of variables declaration//GEN-END:variables
+
+    
 }

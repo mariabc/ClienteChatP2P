@@ -14,9 +14,11 @@ import java.util.ArrayList;
  */
 public interface ICliente extends IClienteP2P  {
     
+public void mensajeErrorContraseña(String error) throws RemoteException;
+
+public void mensajeErrorRegistro(String error) throws RemoteException;
     
-    
-public void killMensajeError (String error)throws RemoteException;
+public void mensajeErrorLogin (String error)throws RemoteException;
 
 public void notificaAmistad(ArrayList<String> Amistad)throws RemoteException;
 

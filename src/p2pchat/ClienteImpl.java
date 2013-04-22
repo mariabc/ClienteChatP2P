@@ -19,6 +19,7 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClient
      private IServidor servidor;
      private ICliente cliente;
      private Login login;
+     private Registro registro;
      private PrincipalChat principal;
 
     
@@ -38,6 +39,12 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClient
     public void setPrincipal(PrincipalChat principal){
     
     this.principal=principal;
+    
+    }
+    
+    public void setRegistro(Registro registro){
+    
+    this.registro=registro;
     
     }
     
@@ -78,11 +85,30 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClient
          servidor.desconectarse(nick);
      
      }
+     
+     public void cambiarContrasenha (String nick, String newPass, String oldPass)throws RemoteException{
+     
+         servidor.cambiarContrasenha(nick, newPass, oldPass);
+     
+     }
 
     @Override
-    public void killMensajeError(String error) {
+    public void mensajeErrorLogin(String error) {
        login.mensajeError(error);
     }
+
+    @Override
+    public void mensajeErrorContraseña(String error) throws RemoteException {
+       principal.mensajeError(error);
+    }
+
+    @Override
+    public void mensajeErrorRegistro(String error) throws RemoteException {
+        registro.mensajeError(error);
+    }
+    
+    
+    
 
     //metodos de notificar amistad
     
@@ -151,8 +177,8 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClient
        principal.recibirMensaje(mensaje, emisor);
     }
 
-    void darBaja(String nick, String contrasenha) throws RemoteException {
-       servidor.darBaja(nick,contrasenha);
+    public void darBaja(String nick, String contrasenha) throws RemoteException {
+       servidor.darBaja(cliente,nick,contrasenha);
     }
     
 }

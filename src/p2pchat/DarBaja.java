@@ -125,15 +125,11 @@ public class DarBaja extends javax.swing.JPanel {
          } catch (RemoteException ex) {
              Logger.getLogger(DarBaja.class.getName()).log(Level.SEVERE, null, ex);
          }
-        
-        
+            
         
     }//GEN-LAST:event_darBajaActionPerformed
 
-    
-    
-    
-    
+   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton darBaja;
     private javax.swing.JLabel jLabel1;
