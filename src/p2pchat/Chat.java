@@ -40,6 +40,7 @@ public class Chat extends javax.swing.JPanel {
         v=new ventana();
         
         v.setVisible(true);
+        v.setSize(674, 400);
         v.setContentPane(this);
         this.principal=principal;
         this.emisor=emisor;
