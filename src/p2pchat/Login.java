@@ -63,7 +63,7 @@ public class Login extends javax.swing.JPanel {
         loginBoton = new javax.swing.JButton();
         registroBoton = new javax.swing.JButton();
         error = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
+        darBaja = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(400, 458));
         setMinimumSize(new java.awt.Dimension(400, 458));
@@ -105,10 +105,10 @@ public class Login extends javax.swing.JPanel {
         error.setForeground(new java.awt.Color(255, 0, 0));
         error.setText("jLabel4");
 
-        jButton1.setText("Darse de baja");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        darBaja.setText("Darse de baja");
+        darBaja.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                darBajaActionPerformed(evt);
             }
         });
 
@@ -145,7 +145,7 @@ public class Login extends javax.swing.JPanel {
                 .addContainerGap(61, Short.MAX_VALUE))
             .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
                 .add(0, 0, Short.MAX_VALUE)
-                .add(jButton1)
+                .add(darBaja)
                 .add(133, 133, 133))
         );
         layout.setVerticalGroup(
@@ -168,7 +168,7 @@ public class Login extends javax.swing.JPanel {
                 .add(18, 18, 18)
                 .add(registroBoton)
                 .add(18, 18, 18)
-                .add(jButton1)
+                .add(darBaja)
                 .addContainerGap(154, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -220,13 +220,17 @@ public class Login extends javax.swing.JPanel {
         
     }//GEN-LAST:event_registroBotonActionPerformed
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void darBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darBajaActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_jButton1ActionPerformed
+           DarBaja darBaja= new DarBaja(cliente);
+      
+           v.setVisible(false);
+       
+    }//GEN-LAST:event_darBajaActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton darBaja;
     private javax.swing.JLabel error;
-    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
