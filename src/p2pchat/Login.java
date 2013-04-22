@@ -63,10 +63,11 @@ public class Login extends javax.swing.JPanel {
         loginBoton = new javax.swing.JButton();
         registroBoton = new javax.swing.JButton();
         error = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
 
         setMaximumSize(new java.awt.Dimension(400, 458));
         setMinimumSize(new java.awt.Dimension(400, 458));
-        setPreferredSize(new java.awt.Dimension(400, 358));
+        setPreferredSize(new java.awt.Dimension(400, 378));
 
         pass.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,6 +105,13 @@ public class Login extends javax.swing.JPanel {
         error.setForeground(new java.awt.Color(255, 0, 0));
         error.setText("jLabel4");
 
+        jButton1.setText("Darse de baja");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
         org.jdesktop.layout.GroupLayout layout = new org.jdesktop.layout.GroupLayout(this);
         this.setLayout(layout);
         layout.setHorizontalGroup(
@@ -135,6 +143,10 @@ public class Login extends javax.swing.JPanel {
                         .add(95, 95, 95)
                         .add(error)))
                 .addContainerGap(61, Short.MAX_VALUE))
+            .add(org.jdesktop.layout.GroupLayout.TRAILING, layout.createSequentialGroup()
+                .add(0, 0, Short.MAX_VALUE)
+                .add(jButton1)
+                .add(133, 133, 133))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(org.jdesktop.layout.GroupLayout.LEADING)
@@ -155,7 +167,9 @@ public class Login extends javax.swing.JPanel {
                 .add(loginBoton)
                 .add(18, 18, 18)
                 .add(registroBoton)
-                .addContainerGap(201, Short.MAX_VALUE))
+                .add(18, 18, 18)
+                .add(jButton1)
+                .addContainerGap(154, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
 
@@ -206,8 +220,13 @@ public class Login extends javax.swing.JPanel {
         
     }//GEN-LAST:event_registroBotonActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel error;
+    private javax.swing.JButton jButton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
