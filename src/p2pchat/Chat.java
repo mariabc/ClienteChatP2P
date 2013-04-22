@@ -127,6 +127,7 @@ public class Chat extends javax.swing.JPanel {
            String mensaje1;
            mensaje1=receptor + "-->" + mensaje +"\n";
            textoMensajes.append(mensaje1);
+           textoMandar.setText("");
         
     
     }
