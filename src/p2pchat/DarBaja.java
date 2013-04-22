@@ -4,6 +4,10 @@
  */
 package p2pchat;
 
+import java.rmi.RemoteException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author maria
@@ -115,16 +119,27 @@ public class DarBaja extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void darBajaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_darBajaActionPerformed
-        // TODO add your handling code here:
-        cliente.darBaja(nick.getText(),);
+         try {
+             // TODO add your handling code here:
+             cliente.darBaja(nick.getText(),new String(password.getPassword()));
+         } catch (RemoteException ex) {
+             Logger.getLogger(DarBaja.class.getName()).log(Level.SEVERE, null, ex);
+         }
+        
+        
+        
     }//GEN-LAST:event_darBajaActionPerformed
 
+    
+    
+    
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton darBaja;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JPasswordField password;
     private javax.swing.JTextField nick;
+    private javax.swing.JPasswordField password;
     // End of variables declaration//GEN-END:variables
 }
