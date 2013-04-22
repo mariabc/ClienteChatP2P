@@ -150,5 +150,9 @@ public class ClienteImpl extends UnicastRemoteObject implements ICliente,IClient
     public void recepcionMensaje(String mensaje, String emisor) throws RemoteException {
        principal.recibirMensaje(mensaje, emisor);
     }
+
+    void darBaja(String nick, String contrasenha) {
+       servidor.darBaja(nick,contrasenha);
+    }
     
 }
