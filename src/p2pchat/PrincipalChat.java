@@ -140,6 +140,7 @@ public class PrincipalChat extends javax.swing.JPanel {
         else{
         amigosConectados.remove(amigo.getNick());
         amigosNombre.remove(amigo.getNick());
+        if(conversaciones.containsKey(amigo.getNick())) conversaciones.remove(amigo.getNick());
         
         }
         
