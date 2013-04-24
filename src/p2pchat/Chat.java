@@ -139,6 +139,7 @@ public class Chat extends javax.swing.JPanel {
             principal.enviarMensaje(textoMandar.getText(),receptor);
             mensaje=emisor + "-->" + textoMandar.getText()+"\n";
             textoMensajes.append(mensaje);
+            textoMandar.setText("");
         
     }//GEN-LAST:event_enviarMensajeActionPerformed
 
